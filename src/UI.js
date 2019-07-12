@@ -12,6 +12,6 @@ export function renderError(err) {
   if (err.message === '404') {
     console.log('City not found');
   } else {
-    console.log('Something happened...');
+    console.log('Something went wrong...');
   }
 }

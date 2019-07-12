@@ -1,11 +1,33 @@
 import { init, renderData, renderError } from './UI.js';
-import { getUrl } from './resources.js';
+import { getWeatherUrls } from './resources.js';
 import { fetchData } from './fetch.js';
 
-const extractData = data => ({
-  city: `${data.name}, ${data.sys.country}`,
-  temp: Math.round(data.main.temp)
-});
+const extractDataToDisplay = ([weather, forecast]) => {
+  console.log(weather, forecast);
+  const extractedWeather = {
+    city: `${weather.name}, ${weather.sys.country}`,
+    temp: Math.round(weather.main.temp),
+    pressure: weather.main.pressure,
+    humidity: weather.main.humidity,
+    desc: weather.weather[0].main,
+    icon: weather.weather[0].icon,
+    wind: weather.wind,
+    time: weather.dt + weather.timezone
+  };
+  const extractedForecast = forecast.list.map((f, i) => ({
+    [`f-temp-${i}`]: f.main.temp,
+    [`f-desc-${i}`]: f.weather[0].main,
+    [`f-icon-${i}`]: f.weather[0].icon,
+    [`f-wind-${i}`]: f.wind,
+    [`f-time-${i}`]: f.dt + weather.timezone
+  }));
+  const extractedData = extractedForecast.reduce(
+    (acc, curr) => ({ ...acc, ...curr }),
+    extractedWeather
+  );
+  console.log(extractedData);
+  return extractedData;
+};
 
 init(submitCity);
 
@@ -16,9 +38,9 @@ function submitCity(e) {
 }
 
 function getWeather(city) {
-  fetchData(getUrl(city))
+  Promise.all(getWeatherUrls(city).map(fetchData))
+    .then(extractDataToDisplay)
     .then(console.log)
-    // .then(extractData)
     // .then(renderData)
-    .catch(renderError);
+    .catch(console.log);
 }
