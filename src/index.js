@@ -14,19 +14,15 @@ const extractDataToDisplay = ([weather, forecast]) => {
     wind: weather.wind,
     time: weather.dt + weather.timezone
   };
-  const extractedForecast = forecast.list.map((f, i) => ({
-    [`f-temp-${i}`]: f.main.temp,
-    [`f-desc-${i}`]: f.weather[0].main,
-    [`f-icon-${i}`]: f.weather[0].icon,
-    [`f-wind-${i}`]: f.wind,
-    [`f-time-${i}`]: f.dt + weather.timezone
+  const extractedForecast = forecast.list.map(f => ({
+    temp: f.main.temp,
+    desc: f.weather[0].main,
+    icon: f.weather[0].icon,
+    wind: f.wind,
+    time: f.dt + weather.timezone
   }));
-  const extractedData = extractedForecast.reduce(
-    (acc, curr) => ({ ...acc, ...curr }),
-    extractedWeather
-  );
-  console.log(extractedData);
-  return extractedData;
+  console.log(extractedForecast);
+  return [extractedWeather, extractedForecast];
 };
 
 init(submitCity);
@@ -40,7 +36,7 @@ function submitCity(e) {
 function getWeather(city) {
   Promise.all(getWeatherUrls(city).map(fetchData))
     .then(extractDataToDisplay)
-    .then(console.log)
-    // .then(renderData)
+    // .then(console.log)
+    .then(renderData)
     .catch(console.log);
 }
