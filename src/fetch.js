@@ -1,5 +1,5 @@
 export function fetchData(url) {
-  return fetch(url, { mode: 'cors' })
+  return fetch(url)
     .then(handleErrors)
     .then(resp => resp.json());
 }
