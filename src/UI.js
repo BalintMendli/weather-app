@@ -39,6 +39,7 @@ export function renderError(err) {
     errorElem.textContent = 'Sorry, city not found';
   } else {
     errorElem.textContent = 'Something went wrong...';
+    console.error(err);
   }
 }
 
@@ -55,6 +56,10 @@ function buildForecastElem(data) {
   const temp = document.createElement('div');
   temp.classList.add('temp');
   temp.textContent = data.temp;
+
+  const tempImp = document.createElement('div');
+  tempImp.classList.add('temp-imp');
+  tempImp.textContent = data.tempImp;
 
   const desc = document.createElement('div');
   desc.classList.add('desc');
@@ -73,6 +78,7 @@ function buildForecastElem(data) {
 
   forecastElem.appendChild(time);
   forecastElem.appendChild(temp);
+  forecastElem.appendChild(tempImp);
   forecastElem.appendChild(desc);
   forecastElem.appendChild(img);
   forecastElem.appendChild(wind);

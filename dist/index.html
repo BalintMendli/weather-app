@@ -5,21 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Weather App</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Karla&display=swap"
+      rel="stylesheet"
+    />
     <script src="bundle.js" defer></script>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <h1 class="title">Weather App</h1>
     <form id="city-input">
-      <input type="text" placeholder="Enter city" />
+      <input type="text" placeholder="Enter city" required />
       <input type="submit" value="Get Weather" />
     </form>
+    <span>or</span>
     <button class="curr-location">Get weather for current location</button>
     <div class="errors"></div>
     <div class="main">
+      frfr
       <div class="weather-box">
         <div class="city"></div>
         <div class="temp"></div>
+        <div class="tempImp"></div>
         <div class="pressure"></div>
         <div class="humidity"></div>
         <div class="desc"></div>

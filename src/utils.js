@@ -2,9 +2,14 @@ import { DateTime } from 'luxon';
 
 export function extractDataToDisplay([weather, forecast]) {
   console.log(weather, forecast);
-  const extractedWeather = {
+  return [extractWeather(weather), extractForecast(forecast)];
+}
+
+function extractWeather(weather) {
+  return {
     city: `${weather.name}, ${weather.sys.country}`,
     temp: `${Math.round(weather.main.temp)} °C`,
+    tempImp: getFahrenheit(weather.main.temp),
     pressure: `${weather.main.pressure} hPa`,
     humidity: `${weather.main.humidity} %`,
     desc: weather.weather[0].main,
@@ -12,17 +17,21 @@ export function extractDataToDisplay([weather, forecast]) {
     wind: getWind(weather.wind),
     time: getTime(weather.dt, weather.timezone)
   };
+}
 
-  const extractedForecast = forecast.list.map(f => ({
+function extractForecast(forecast) {
+  return forecast.list.map(f => ({
     temp: `${Math.round(f.main.temp)} °C`,
+    tempImp: getFahrenheit(f.main.temp),
     desc: f.weather[0].main,
     img: getImgUrl(f.weather[0].icon),
     wind: getWind(f.wind),
-    time: getTime(f.dt, weather.timezone)
+    time: getTime(f.dt, forecast.city.timezone)
   }));
-  console.log(extractedForecast);
+}
 
-  return [extractedWeather, extractedForecast];
+function getFahrenheit(celsius) {
+  return Math.round((celsius * 9) / 5 + 32) + ' °F';
 }
 
 function getTime(utc, timezone) {
@@ -57,7 +66,7 @@ function getWind({ speed, deg }) {
   return `${Math.round(speed)} m/s ${dirs[i]}`;
 }
 
-export function getCity(resp) {
-  console.log(`${resp.city}, ${resp.countryCode}`);
-  return `${resp.city},${resp.countryCode}`;
+export function extractCity(resp) {
+  console.log(`${resp.city},${resp.country_code}`);
+  return `${resp.city},${resp.country_code}`;
 }

@@ -1,7 +1,7 @@
 const apiUrl = 'https://api.openweathermap.org/data/2.5/';
 const apiKey = '608777e920b27420a041c68646f66380';
 
-const locApiUrl = 'http://ip-api.com/json';
+const locApiUrl = 'https://geoip-db.com/json/';
 
 function getUrl(query, resource) {
   return (

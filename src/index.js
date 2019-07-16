@@ -1,7 +1,7 @@
 import { init, renderData, renderError } from './UI.js';
 import { getWeatherUrls, getLocUrl } from './resources.js';
 import { fetchData } from './fetch.js';
-import { extractDataToDisplay, getCity } from './utils';
+import { extractDataToDisplay, extractCity } from './utils';
 
 function getWeather(city) {
   Promise.all(getWeatherUrls(city).map(fetchData))
@@ -18,7 +18,7 @@ function submitCity(e) {
 
 function getCurrCity() {
   fetchData(getLocUrl())
-    .then(getCity)
+    .then(extractCity)
     .then(getWeather);
 }
 
