@@ -1,15 +1,34 @@
-export function init(formCb, currLocCb) {
+import { getWeather, getCurrCity } from './index';
+
+export function init() {
   const form = document.querySelector('#city-input');
-  form.addEventListener('submit', formCb);
+  form.addEventListener('submit', citySubmit);
   const currLoc = document.querySelector('.curr-location');
-  currLoc.addEventListener('click', currLocCb);
+  currLoc.addEventListener('click', currClick);
+}
+
+function citySubmit(e) {
+  e.preventDefault();
+  showLoader();
+  hideErrors();
+  hideMain();
+  const city = e.target[0].value;
+  getWeather(city);
+}
+
+function currClick() {
+  showLoader();
+  hideErrors();
+  hideMain();
+  getCurrCity();
 }
 
 export function renderData([weatherData, forecastData]) {
-  deleteErrors();
   renderWeather(weatherData);
   renderForecast(forecastData);
-  document.querySelector('.main').classList.remove('hide');
+  hideLoader();
+  hideErrors();
+  showMain();
 }
 
 function renderWeather(data) {
@@ -33,7 +52,6 @@ function renderForecast(data) {
 }
 
 export function renderError(err) {
-  document.querySelector('.main').classList.add('hide');
   const errorElem = document.querySelector('.errors');
   if (err.message === '404') {
     errorElem.textContent = 'Sorry, city not found';
@@ -41,11 +59,9 @@ export function renderError(err) {
     errorElem.textContent = 'Something went wrong...';
     console.error(err);
   }
-}
-
-function deleteErrors() {
-  const errorElem = document.querySelector('.errors');
-  errorElem.textContent = '';
+  hideLoader();
+  hideMain();
+  showErrors();
 }
 
 function buildForecastElem(data) {
@@ -84,4 +100,28 @@ function buildForecastElem(data) {
   forecastElem.appendChild(wind);
 
   return forecastElem;
+}
+
+function showLoader() {
+  document.querySelector('.loader').classList.remove('hide');
+}
+
+function hideLoader() {
+  document.querySelector('.loader').classList.add('hide');
+}
+
+function showMain() {
+  document.querySelector('.main').classList.remove('hide');
+}
+
+function hideMain() {
+  document.querySelector('.main').classList.add('hide');
+}
+
+function showErrors() {
+  document.querySelector('.errors').classList.remove('hide');
+}
+
+function hideErrors() {
+  document.querySelector('.errors').classList.add('hide');
 }

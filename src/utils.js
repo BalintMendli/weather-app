@@ -44,6 +44,7 @@ function getImgUrl(id) {
 }
 
 function getWind({ speed, deg }) {
+  if (!deg) return `${Math.round(speed)} m/s`;
   const dirs = [
     'N',
     'N-NE',

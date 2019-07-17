@@ -10,16 +10,12 @@ function getWeather(city) {
     .catch(renderError);
 }
 
-function submitCity(e) {
-  e.preventDefault();
-  const city = e.target[0].value;
-  getWeather(city);
-}
-
 function getCurrCity() {
   fetchData(getLocUrl())
     .then(extractCity)
     .then(getWeather);
 }
 
-init(submitCity, getCurrCity);
+init();
+
+export { getWeather, getCurrCity };
