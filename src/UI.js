@@ -5,6 +5,8 @@ export function init() {
   form.addEventListener('submit', citySubmit);
   const currLoc = document.querySelector('.curr-location');
   currLoc.addEventListener('click', currClick);
+  const units = document.querySelector('.units');
+  units.addEventListener('click', unitsClick);
 }
 
 function citySubmit(e) {
@@ -16,11 +18,23 @@ function citySubmit(e) {
   getWeather(city);
 }
 
-function currClick() {
+function currClick(e) {
+  e.preventDefault();
   showLoader();
   hideErrors();
   hideMain();
   getCurrCity();
+}
+
+function unitsClick(e) {
+  const el = e.target;
+  const main = document.querySelector('.main');
+  if (el.classList.contains('celsius')) {
+    main.classList.remove('imperial');
+  }
+  if (el.classList.contains('fahrenheit')) {
+    main.classList.add('imperial');
+  }
 }
 
 export function renderData([weatherData, forecastData]) {
@@ -65,6 +79,10 @@ export function renderError(err) {
 }
 
 function buildForecastElem(data) {
+  const date = document.createElement('div');
+  date.classList.add('date');
+  date.textContent = data.date;
+
   const time = document.createElement('div');
   time.classList.add('time');
   time.textContent = data.time;
@@ -74,7 +92,7 @@ function buildForecastElem(data) {
   temp.textContent = data.temp;
 
   const tempImp = document.createElement('div');
-  tempImp.classList.add('temp-imp');
+  tempImp.classList.add('tempImp');
   tempImp.textContent = data.tempImp;
 
   const desc = document.createElement('div');
@@ -85,19 +103,15 @@ function buildForecastElem(data) {
   img.classList.add('img');
   img.src = data.img;
 
-  const wind = document.createElement('div');
-  wind.classList.add('wind');
-  wind.textContent = data.wind;
-
   const forecastElem = document.createElement('div');
   forecastElem.classList.add('forecast');
 
+  forecastElem.appendChild(date);
   forecastElem.appendChild(time);
+  forecastElem.appendChild(img);
   forecastElem.appendChild(temp);
   forecastElem.appendChild(tempImp);
   forecastElem.appendChild(desc);
-  forecastElem.appendChild(img);
-  forecastElem.appendChild(wind);
 
   return forecastElem;
 }
@@ -112,6 +126,7 @@ function hideLoader() {
 
 function showMain() {
   document.querySelector('.main').classList.remove('hide');
+  document.querySelector('#city-input').classList.add('up');
 }
 
 function hideMain() {
