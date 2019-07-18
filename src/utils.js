@@ -50,7 +50,7 @@ function getDateTime(utc, timezone) {
 }
 
 function getImgUrl(id) {
-  return `http://openweathermap.org/img/wn/${id}@2x.png`;
+  return `https://openweathermap.org/img/wn/${id}@2x.png`;
 }
 
 function getWind({ speed, deg }) {
