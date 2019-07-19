@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Weather App</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Karla&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css"
+      integrity="sha256-UzFD2WYH2U1dQpKDjjZK72VtPeWP50NoJjd26rnAdUI="
+      crossorigin="anonymous"
+    />
+    <script src="bundle.js" defer></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <form id="city-input">
+      <input type="text" placeholder="Enter city" required />
+      <input type="submit" value="Get Weather" />
+      <button class="curr-location">
+        <i class="fas fa-map-marker-alt"></i>Current location
+      </button>
+    </form>
+    <div class="loader hide">Loading...</div>
+    <div class="errors hide"></div>
+    <div class="main hide">
+      <div class="units">
+        <div class="celsius">°C</div>
+        <div class="fahrenheit">°F</div>
+      </div>
+      <div class="weather-box">
+        <h3 class="city-cont">
+          Current weather in
+          <span class="city"></span>
+        </h3>
+        <div class="time"></div>
+        <div class="data-container">
+          <div class="temp-desc-img">
+            <img class="img" />
+            <div class="temp"></div>
+            <div class="tempImp"></div>
+            <div class="desc"></div>
+          </div>
+          <div class="others">
+            <div class="humidity-cont">
+              Humidity:&nbsp;<span class="humidity"></span>
+            </div>
+            <div class="pressure-cont">
+              Pressure:&nbsp;<span class="pressure"></span>
+            </div>
+            <div class="wind-cont">Wind:&nbsp;<span class="wind"></span></div>
+            <div class="sunrise-cont">
+              Sunrise:&nbsp;<span class="sunrise"></span>
+            </div>
+            <div class="sunset-cont">
+              Sunset:&nbsp;<span class="sunset"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h3 class="forecast-title">5 day forecast</h3>
+      <div class="forecast-box"></div>
+    </div>
+  </body>
+</html>
