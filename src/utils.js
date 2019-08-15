@@ -1,34 +1,44 @@
 import { DateTime } from 'luxon';
 
-export function extractDataToDisplay([weather, forecast]) {
-  return [extractWeather(weather), extractForecast(forecast)];
+export function parseData([weather, forecast]) {
+  return [parseWeather(weather), parseForecast(forecast)];
 }
 
-function extractWeather(weather) {
+function parseWeather({
+  name,
+  main: { temp, pressure, humidity },
+  weather: [{ description, icon }],
+  sys: { country, sunrise, sunset },
+  wind,
+  dt,
+  timezone
+}) {
   return {
-    city: `${weather.name}, ${weather.sys.country}`,
-    temp: `${Math.round(weather.main.temp)} °C`,
-    tempImp: getFahrenheit(weather.main.temp),
-    pressure: `${weather.main.pressure} hPa`,
-    humidity: `${weather.main.humidity} %`,
-    desc: weather.weather[0].description,
-    img: getImgUrl(weather.weather[0].icon),
-    wind: getWind(weather.wind),
-    time: getDateTime(weather.dt, weather.timezone),
-    sunrise: getTime(weather.sys.sunrise, weather.timezone),
-    sunset: getTime(weather.sys.sunset, weather.timezone)
+    city: `${name}, ${country}`,
+    temp: `${Math.round(temp)} °C`,
+    tempImp: getFahrenheit(temp),
+    pressure: `${pressure} hPa`,
+    humidity: `${humidity} %`,
+    desc: description,
+    img: getImgUrl(icon),
+    wind: getWind(wind),
+    time: getDateTime(dt, timezone),
+    sunrise: getTime(sunrise, timezone),
+    sunset: getTime(sunset, timezone)
   };
 }
 
-function extractForecast(forecast) {
-  return forecast.list.map(f => ({
-    temp: `${Math.round(f.main.temp)} °C`,
-    tempImp: getFahrenheit(f.main.temp),
-    desc: f.weather[0].main,
-    img: getImgUrl(f.weather[0].icon),
-    date: getDate(f.dt, forecast.city.timezone),
-    time: getTime(f.dt, forecast.city.timezone)
-  }));
+function parseForecast(forecast) {
+  return forecast.list.map(
+    ({ main: { temp }, weather: [{ main, icon }], dt }) => ({
+      temp: `${Math.round(temp)} °C`,
+      tempImp: getFahrenheit(temp),
+      desc: main,
+      img: getImgUrl(icon),
+      date: getDate(dt, forecast.city.timezone),
+      time: getTime(dt, forecast.city.timezone)
+    })
+  );
 }
 
 function getFahrenheit(celsius) {
@@ -77,6 +87,6 @@ function getWind({ speed, deg }) {
   return `${Math.round(speed)}m/s ${dirs[i]}`;
 }
 
-export function extractCity(resp) {
+export function parseCity(resp) {
   return `${resp.city},${resp.country_code}`;
 }
