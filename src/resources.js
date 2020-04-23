@@ -21,6 +21,6 @@ export function getWeatherUrls(query) {
   return [getWeatherUrl(query), getForecastUrl(query)];
 }
 
-export function getLocUrl() {
+export function getLocationUrl() {
   return locApiUrl;
 }

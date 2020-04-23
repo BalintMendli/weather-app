@@ -1,7 +1,7 @@
 import { getWeather, getCurrCity } from './index';
 
 export function init() {
-  const form = document.querySelector('#city-input');
+  const form = document.querySelector('.input-form');
   form.addEventListener('submit', citySubmit);
   const currLoc = document.querySelector('.curr-location');
   currLoc.addEventListener('click', currClick);
@@ -46,7 +46,7 @@ export function renderData([weatherData, forecastData]) {
 }
 
 function renderWeather(data) {
-  Object.keys(data).forEach(key => {
+  Object.keys(data).forEach((key) => {
     const elem = document.querySelector(`.weather-box .${key}`);
     if (key === 'img') {
       elem.src = data[key];
@@ -58,19 +58,33 @@ function renderWeather(data) {
 
 function renderForecast(data) {
   const forecastDiv = document.querySelector(`.forecast-box`);
-  [...forecastDiv.children].forEach(el => el.remove());
-  data.forEach(d => {
+  [...forecastDiv.children].forEach((el) => el.remove());
+  data.forEach((d) => {
     const elem = buildForecastElem(d);
     forecastDiv.appendChild(elem);
   });
 }
 
-export function renderError(err) {
+export function handleError(err) {
   const errorElem = document.querySelector('.errors');
   if (err.message === '404') {
     errorElem.textContent = 'Sorry, city not found';
   } else {
-    errorElem.textContent = 'Something went wrong...';
+    errorElem.textContent =
+      'Ooops, something went wrong... Consider switching off your adblocker';
+    console.error(err);
+  }
+  hideLoader();
+  hideMain();
+  showErrors();
+}
+
+export function handleWeatherError(err) {
+  const errorElem = document.querySelector('.errors');
+  if (err.message === '404') {
+    errorElem.textContent = 'Sorry, city not found';
+  } else {
+    errorElem.textContent = 'Ooops, something went wrong...';
     console.error(err);
   }
   hideLoader();
@@ -126,7 +140,7 @@ function hideLoader() {
 
 function showMain() {
   document.querySelector('.main').classList.remove('hide');
-  document.querySelector('#city-input').classList.add('up');
+  document.querySelector('.inputs').classList.add('up');
 }
 
 function hideMain() {
