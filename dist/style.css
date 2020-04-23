@@ -27,33 +27,58 @@ body,
   display: none;
 }
 
-form#city-input {
+.inputs {
   display: flex;
+  justify-content: center;
   margin: 200px 0 30px;
-  transform: scale(1.2);
+  width: 80%;
+  max-width: 610px;
+  font-size: 1.1rem;
   transition: 250ms ease-in-out;
+  transition-property: all;
 }
 
-form#city-input.up {
+.inputs.up {
   margin: 55px 0 30px;
-  transform: scale(1);
-  transition-property: transform, margin-top;
+  font-size: 0.8rem;
 }
 
-input[type='text'] {
+.input-form {
+  display: flex;
+  margin-right: 50px;
+}
+
+.inputs.up .input-form {
+  margin-right: 30px;
+}
+
+@media (max-width: 750px) {
+  .inputs {
+    flex-direction: column;
+    align-items: center;
+    font-size: 1rem;
+  }
+
+  .input-form {
+    margin-bottom: 30px;
+    margin-right: 0;
+  }
+}
+
+.city-input {
+  max-width: 50vw;
   border-radius: 6px 0 0 6px;
   background-color: #fff;
   border: none;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  padding: 10px 12px;
+  padding: 0.5em 1em;
   margin: 0;
-  width: 250px;
   outline: none;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: inherit;
 }
 
-input[type='submit'] {
+.submit-button {
   background-color: #ff6220;
   background: linear-gradient(#ffb120, #ff6220, #ffb120);
   background-size: 100% 200%;
@@ -61,14 +86,14 @@ input[type='submit'] {
   border: 1px #e65213 solid;
   border-radius: 0 6px 6px 0;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  padding: 10px 15px;
+  padding: 0.5em 1em;
   outline: none;
   margin: 0;
   cursor: pointer;
   font-family: inherit;
-  font-size: 1rem;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
   transition: background 250ms ease-in-out;
+  font-size: inherit;
 }
 
 button {
@@ -79,12 +104,11 @@ button {
   border: 1px #035394 solid;
   border-radius: 6px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  padding: 8px 15px;
+  padding: 0.5em 1em;
   outline: none;
-  margin: 0 10px;
   cursor: pointer;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: inherit;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
   transition: background 250ms ease-in-out;
 }

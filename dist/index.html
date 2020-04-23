@@ -19,13 +19,20 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <form id="city-input">
-      <input type="text" placeholder="Enter city" required />
-      <input type="submit" value="Get Weather" />
+    <div class="inputs">
+      <form class="input-form">
+        <input
+          type="text"
+          class="city-input"
+          placeholder="Enter city"
+          required
+        />
+        <input type="submit" class="submit-button" value="Get Weather" />
+      </form>
       <button class="curr-location">
         <i class="fas fa-map-marker-alt"></i>Current location
       </button>
-    </form>
+    </div>
     <div class="loader hide">Loading...</div>
     <div class="errors hide"></div>
     <div class="main hide">
