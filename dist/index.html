@@ -27,7 +27,7 @@
           placeholder="Enter city"
           required
         />
-        <input type="submit" class="submit-button" value="Get Weather" />
+        <button type="submit" class="submit-button">Get Weather</button>
       </form>
       <button class="curr-location">
         <i class="fas fa-map-marker-alt"></i>Current location
@@ -55,23 +55,35 @@
           </div>
           <div class="others">
             <div class="humidity-cont">
-              Humidity:&nbsp;<span class="humidity"></span>
+              Humidity:<span class="humidity"></span>
             </div>
             <div class="pressure-cont">
-              Pressure:&nbsp;<span class="pressure"></span>
+              Pressure:<span class="pressure"></span>
             </div>
-            <div class="wind-cont">Wind:&nbsp;<span class="wind"></span></div>
+            <div class="wind-cont">Wind:<span class="wind"></span></div>
             <div class="sunrise-cont">
-              Sunrise:&nbsp;<span class="sunrise"></span>
+              Sunrise:<span class="sunrise"></span>
             </div>
-            <div class="sunset-cont">
-              Sunset:&nbsp;<span class="sunset"></span>
-            </div>
+            <div class="sunset-cont">Sunset:<span class="sunset"></span></div>
           </div>
         </div>
       </div>
-      <h3 class="forecast-title">5 day forecast</h3>
+      <h3 class="forecast-title">5-day forecast</h3>
       <div class="forecast-box"></div>
     </div>
+    <template id="forecast-template">
+      <div class="forecast">
+        <div>
+          <div class="date"></div>
+          <div class="time"></div>
+        </div>
+        <img class="img" src="" />
+        <div>
+          <div class="temp"></div>
+          <div class="tempImp"></div>
+          <div class="desc"></div>
+        </div>
+      </div>
+    </template>
   </body>
 </html>

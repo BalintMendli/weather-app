@@ -1,4 +1,4 @@
-import { init, renderData, handleError, handleWeatherError } from './UI.js';
+import { init, renderData, handleLocError, handleWeatherError } from './UI.js';
 import { getWeatherUrls, getLocationUrl } from './resources.js';
 import { fetchData } from './fetch.js';
 import { parseData, parseCity } from './utils';
@@ -10,13 +10,11 @@ function getWeather(city) {
     .catch(handleWeatherError);
 }
 
-function getCurrCity() {
+function getCurrentCity() {
   fetchData(getLocationUrl())
     .then(parseCity)
     .then(getWeather)
-    .catch(handleError);
+    .catch(handleLocError);
 }
 
-init();
-
-export { getWeather, getCurrCity };
+init(getWeather, getCurrentCity);

@@ -1,29 +1,27 @@
-import { getWeather, getCurrCity } from './index';
-
-export function init() {
+export function init(getWeather, getCurrentCity) {
   const form = document.querySelector('.input-form');
-  form.addEventListener('submit', citySubmit);
+  form.addEventListener('submit', citySubmit.bind(null, getWeather));
   const currLoc = document.querySelector('.curr-location');
-  currLoc.addEventListener('click', currClick);
+  currLoc.addEventListener('click', currCityClick.bind(null, getCurrentCity));
   const units = document.querySelector('.units');
   units.addEventListener('click', unitsClick);
 }
 
-function citySubmit(e) {
+function citySubmit(getWeather, e) {
   e.preventDefault();
+  const city = e.target[0].value;
   showLoader();
   hideErrors();
   hideMain();
-  const city = e.target[0].value;
   getWeather(city);
 }
 
-function currClick(e) {
+function currCityClick(getCurrentCity, e) {
   e.preventDefault();
   showLoader();
   hideErrors();
   hideMain();
-  getCurrCity();
+  getCurrentCity();
 }
 
 function unitsClick(e) {
@@ -65,15 +63,11 @@ function renderForecast(data) {
   });
 }
 
-export function handleError(err) {
+export function handleLocError(err) {
   const errorElem = document.querySelector('.errors');
-  if (err.message === '404') {
-    errorElem.textContent = 'Sorry, city not found';
-  } else {
-    errorElem.textContent =
-      'Ooops, something went wrong... Consider switching off your adblocker';
-    console.error(err);
-  }
+  errorElem.textContent =
+    'Error getting current location... Try disabling your adblocker';
+  console.error(err);
   hideLoader();
   hideMain();
   showErrors();
@@ -93,40 +87,16 @@ export function handleWeatherError(err) {
 }
 
 function buildForecastElem(data) {
-  const date = document.createElement('div');
-  date.classList.add('date');
-  date.textContent = data.date;
-
-  const time = document.createElement('div');
-  time.classList.add('time');
-  time.textContent = data.time;
-
-  const temp = document.createElement('div');
-  temp.classList.add('temp');
-  temp.textContent = data.temp;
-
-  const tempImp = document.createElement('div');
-  tempImp.classList.add('tempImp');
-  tempImp.textContent = data.tempImp;
-
-  const desc = document.createElement('div');
-  desc.classList.add('desc');
-  desc.textContent = data.desc;
-
-  const img = document.createElement('img');
-  img.classList.add('img');
-  img.src = data.img;
-
-  const forecastElem = document.createElement('div');
-  forecastElem.classList.add('forecast');
-
-  forecastElem.appendChild(date);
-  forecastElem.appendChild(time);
-  forecastElem.appendChild(img);
-  forecastElem.appendChild(temp);
-  forecastElem.appendChild(tempImp);
-  forecastElem.appendChild(desc);
-
+  const template = document.querySelector('#forecast-template');
+  var forecastElem = template.content.cloneNode(true);
+  Object.keys(data).forEach((key) => {
+    const elem = forecastElem.querySelector(`.${key}`);
+    if (key === 'img') {
+      elem.src = data[key];
+    } else {
+      elem.textContent = data[key];
+    }
+  });
   return forecastElem;
 }
 

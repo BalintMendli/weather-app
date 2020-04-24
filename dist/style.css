@@ -30,7 +30,7 @@ body,
 .inputs {
   display: flex;
   justify-content: center;
-  margin: 200px 0 30px;
+  margin: 200px auto 30px;
   width: 80%;
   max-width: 610px;
   font-size: 1.1rem;
@@ -40,7 +40,7 @@ body,
 
 .inputs.up {
   margin: 55px 0 30px;
-  font-size: 0.8rem;
+  font-size: 1rem;
 }
 
 .input-form {
@@ -78,47 +78,40 @@ body,
   font-size: inherit;
 }
 
-.submit-button {
-  background-color: #ff6220;
-  background: linear-gradient(#ffb120, #ff6220, #ffb120);
-  background-size: 100% 200%;
-  color: #fff;
-  border: 1px #e65213 solid;
-  border-radius: 0 6px 6px 0;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  padding: 0.5em 1em;
-  outline: none;
-  margin: 0;
-  cursor: pointer;
-  font-family: inherit;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-  transition: background 250ms ease-in-out;
-  font-size: inherit;
-}
-
 button {
-  background-color: #1c80d3;
-  background: linear-gradient(#1c80d3, #1625b1, #1c80d3);
-  background-size: 100% 200%;
   color: #fff;
-  border: 1px #035394 solid;
   border-radius: 6px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   padding: 0.5em 1em;
   outline: none;
   cursor: pointer;
   font-family: inherit;
   font-size: inherit;
+  border-width: 1px;
+  border-style: solid;
+  background-size: 100% 200%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
   transition: background 250ms ease-in-out;
 }
 
-input[type='submit']:hover,
 button:hover {
   background-position: 0 15%;
 }
 
-button i {
+.submit-button {
+  background-color: #ff6220;
+  background-image: linear-gradient(#ffb120, #ff6220, #ffb120);
+  border-color: #e65213;
+  border-radius: 0 6px 6px 0;
+}
+
+.curr-location {
+  background-color: #1c80d3;
+  background-image: linear-gradient(#1c80d3, #1625b1, #1c80d3);
+  border-color: #035394;
+}
+
+.curr-location i {
   margin-right: 8px;
 }
 
@@ -137,7 +130,9 @@ button i {
 }
 
 .main {
-  width: 700px;
+  max-width: 700px;
+  width: 90%;
+  margin: 0 auto;
 }
 
 .main::before {
@@ -226,7 +221,9 @@ button i {
 
 .data-container {
   display: flex;
-  margin: 30px 0 30px 55px;
+  justify-content: center;
+  align-items: center;
+  margin: 30px 0 30px;
 }
 
 .temp-desc-img img {
@@ -243,13 +240,26 @@ button i {
 }
 
 .others {
-  margin-left: 110px;
+  margin-left: 75px;
+  min-width: 250px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   border: 1px solid #a5a5a5;
   background-color: rgba(165, 165, 165, 0.1);
-  padding: 0 25px;
+  padding: 20px 25px;
+}
+
+@media (max-width: 750px) {
+  .data-container {
+    flex-direction: column;
+    margin: 10px 0 30px;
+  }
+  .others {
+    margin-left: 0;
+    margin-top: 30px;
+    width: 100%;
+  }
 }
 
 .others > div:not(:first-child) {
@@ -303,10 +313,13 @@ button i {
 
 .forecast {
   padding: 5px;
+  display: flex;
+  flex-direction: column;
 }
 
 .forecast + .forecast {
   border-left: 1px solid rgba(165, 165, 165, 0.25);
+  border-top: 1px solid rgba(165, 165, 165, 0.25);
 }
 
 .forecast .date {
@@ -324,6 +337,19 @@ button i {
 .forecast .tempImp {
   font-size: 1.35rem;
   font-weight: bold;
+}
+
+@media (max-width: 750px) {
+  .forecast-box {
+    flex-direction: column;
+  }
+
+  .forecast {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+  }
 }
 
 .loader {
