@@ -14,7 +14,7 @@ body {
 
 body,
 .main::before {
-  background-image: url('img/bg.jpg');
+  background-image: url('img/cloudy-night.jpg');
   background-size: cover;
   background-position: bottom right;
   background-attachment: fixed;
@@ -59,14 +59,15 @@ body,
     font-size: 1rem;
   }
 
-  .input-form {
+  .input-form,
+  .inputs.up .input-form {
     margin-bottom: 30px;
     margin-right: 0;
   }
 }
 
 .city-input {
-  max-width: 50vw;
+  max-width: 40vw;
   border-radius: 6px 0 0 6px;
   background-color: #fff;
   border: none;
@@ -99,16 +100,16 @@ button:hover {
 }
 
 .submit-button {
-  background-color: #ff6220;
-  background-image: linear-gradient(#ffb120, #ff6220, #ffb120);
-  border-color: #e65213;
+  background-color: #c04b18;
+  background-image: linear-gradient(#eca41e, #c04b18, #eca41e);
+  border-color: #c04b18;
   border-radius: 0 6px 6px 0;
 }
 
 .curr-location {
   background-color: #1c80d3;
   background-image: linear-gradient(#1c80d3, #1625b1, #1c80d3);
-  border-color: #035394;
+  border-color: #1625b1;
 }
 
 .curr-location i {
@@ -173,7 +174,7 @@ button:hover {
 }
 
 .main .celsius {
-  background: linear-gradient(#ffb120, #ff6220);
+  background: linear-gradient(#eca41e, #c04b18);
 }
 
 .main.imperial .celsius {
@@ -185,7 +186,7 @@ button:hover {
 }
 
 .main.imperial .fahrenheit {
-  background: linear-gradient(#ffb120, #ff6220);
+  background: linear-gradient(#eca41e, #c04b18);
 }
 
 .main .tempImp {
@@ -245,7 +246,7 @@ button:hover {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  border: 1px solid #a5a5a5;
+  border: 1px solid rgba(165, 165, 165, 0.8);
   background-color: rgba(165, 165, 165, 0.1);
   padding: 20px 25px;
 }
@@ -291,7 +292,7 @@ button:hover {
   display: flex;
   overflow-x: scroll;
   scrollbar-width: thin;
-  border: solid #a5a5a5;
+  border: 1px solid rgba(165, 165, 165, 0.8);
   background-color: rgba(165, 165, 165, 0.2);
   border-width: 1px 1px 0;
 }
@@ -339,9 +340,13 @@ button:hover {
   font-weight: bold;
 }
 
-@media (max-width: 750px) {
+@media (max-width: 550px) {
+  .main {
+    padding: 55px 20px 30px;
+  }
   .forecast-box {
     flex-direction: column;
+    width: 100%;
   }
 
   .forecast {
