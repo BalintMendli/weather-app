@@ -1,3 +1,5 @@
+import { bgMap } from './constants';
+
 export function init(getWeather, getCurrentCity) {
   const form = document.querySelector('.input-form');
   form.addEventListener('submit', citySubmit.bind(null, getWeather));
@@ -44,11 +46,12 @@ export function renderData([weatherData, forecastData]) {
 }
 
 function renderWeather(data) {
+  setBg(data.icon);
   Object.keys(data).forEach((key) => {
     const elem = document.querySelector(`.weather-box .${key}`);
     if (key === 'img') {
       elem.src = data[key];
-    } else {
+    } else if (elem) {
       elem.textContent = data[key];
     }
   });
@@ -93,11 +96,21 @@ function buildForecastElem(data) {
     const elem = forecastElem.querySelector(`.${key}`);
     if (key === 'img') {
       elem.src = data[key];
-    } else {
+    } else if (elem) {
       elem.textContent = data[key];
     }
   });
   return forecastElem;
+}
+
+function setBg(icon) {
+  if (bgMap[icon]) {
+    const bgUrl = `img/${bgMap[icon]}.jpg`;
+    const elems = document.querySelectorAll('body, .blur');
+    elems.forEach((e) => {
+      e.style.backgroundImage = `url(${bgUrl})`;
+    });
+  }
 }
 
 function showLoader() {

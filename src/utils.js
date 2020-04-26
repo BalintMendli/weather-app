@@ -1,4 +1,5 @@
 import { DateTime } from 'luxon';
+import { directions } from './constants';
 
 export function parseData([weather, forecast]) {
   return [parseWeather(weather), parseForecast(forecast)];
@@ -11,7 +12,7 @@ function parseWeather({
   sys: { country, sunrise, sunset },
   wind,
   dt,
-  timezone
+  timezone,
 }) {
   return {
     city: `${name}, ${country}`,
@@ -20,11 +21,12 @@ function parseWeather({
     pressure: `${pressure} hPa`,
     humidity: `${humidity} %`,
     desc: description,
+    icon,
     img: getImgUrl(icon),
     wind: getWind(wind),
     time: getDateTime(dt, timezone),
     sunrise: getTime(sunrise, timezone),
-    sunset: getTime(sunset, timezone)
+    sunset: getTime(sunset, timezone),
   };
 }
 
@@ -36,8 +38,8 @@ function parseForecast(forecast) {
       desc: main,
       img: getImgUrl(icon),
       date: getDate(dt, forecast.city.timezone),
-      time: getTime(dt, forecast.city.timezone)
-    })
+      time: getTime(dt, forecast.city.timezone),
+    }),
   );
 }
 
@@ -65,26 +67,8 @@ function getImgUrl(id) {
 
 function getWind({ speed, deg }) {
   if (!deg) return `${Math.round(speed)}m/s`;
-  const dirs = [
-    'N',
-    'N-NE',
-    'NE',
-    'E-NE',
-    'E',
-    'E-SE',
-    'SE',
-    'S-SE',
-    'S',
-    'S-SW',
-    'SW',
-    'W-SW',
-    'W',
-    'W-NW',
-    'NW',
-    'N-NW'
-  ];
   const i = Math.floor(deg / 22.5 + 0.5) % 16;
-  return `${Math.round(speed)}m/s ${dirs[i]}`;
+  return `${Math.round(speed)}m/s ${directions[i]}`;
 }
 
 export function parseCity(resp) {
