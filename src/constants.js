@@ -15,8 +15,8 @@ export const bgMap = {
   '11n': 'thunderstorm',
   '13d': 'snow',
   '13n': 'snow-night',
-  '50n': 'mist',
-  '50d': 'mist-night',
+  '50d': 'mist',
+  '50n': 'mist-night',
 };
 
 export const directions = [
