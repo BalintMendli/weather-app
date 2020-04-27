@@ -8,7 +8,7 @@
 
 ## Live Demo
 
-[Demo](https://raw.githack.com/zenott/weather-app/development/dist/index.html)
+[Demo](https://raw.githack.com/zenott/weather-app/master/dist/index.html)
 
 ## Built With
 
