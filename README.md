@@ -14,7 +14,7 @@
 
 - HTML5
 - CSS3
-- JavaScript (ES6)
+- JavaScript
 - Cypress for testing
 
 ## Usage
@@ -60,14 +60,14 @@ $ npm run cy:open
 
 👤 **Balint Mendli**
 
-- Github: [@zenott](https://github.com/zenott)
+- GitHub: [@zenott](https://github.com/zenott)
 - Website: [mendli.com](https://mendli.com)
 - Email: [balint@mendli.com](mailto:balint@mendli.com)
 
 ## 🤝 Contributing
 
-Contributions, issues and feature requests are welcome!
-Feel free to check [issues page](https://github.com/zenott/react-calculator/issues/).
+Contributions, issues, and feature requests are welcome!
+Feel free to check the [issues page](https://github.com/zenott/react-calculator/issues/).
 
 1. Fork it
 2. Create your working branch
